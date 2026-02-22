@@ -92,9 +92,9 @@ const dragones = [
 ]
 
 let dragonesObservados = JSON.parse(localStorage.getItem("coleccion")) || [];
-let listaAvistados = document.getElementById("lista-avistados");
-
+const listaAvistados = document.getElementById("lista-avistados");
 const contenedorDragones = document.getElementById("contenedor-dragones");
+
 // 2. Creamos una función que se encargará de "dibujar" los dragones en el contenedor. Esta función recibirá una lista de dragones y generará el HTML necesario para mostrarlos.
 function renderizarDragones(listaDeDragones) {
     contenedorDragones.innerHTML = "";
@@ -104,7 +104,7 @@ function renderizarDragones(listaDeDragones) {
         card.innerHTML = `<h3>${dragon.nombre}</h3>
             <p><strong>Elemento:</strong> ${dragon.elemento}</p>
             <p><strong>Rareza:</strong> ${dragon.rareza}</p>
-            <button id="btn-${dragon.id}">¡Avistado!</button>`;
+            <button id="btn-${dragon.id}">¡Encontrado!</button>`;
         contenedorDragones.appendChild(card);
         // 1. Capturamos el botón que acabamos de crear
         let boton = document.getElementById("btn-" + dragon.id);
@@ -116,10 +116,7 @@ function renderizarDragones(listaDeDragones) {
     });
 }
 
-// 4. LA ORDEN DE EJECUCIÓN (Va aquí abajo, al final de todo)
-renderizarDragones(dragones);
-
-let buscar = document.getElementById("buscador");
+const buscar = document.getElementById("buscador");
 buscar.addEventListener("input", filtrarDragones)
 
 function filtrarDragones() {
@@ -139,10 +136,38 @@ function añadirAColeccion(idDelDragon) {
         return dragon.id === idDelDragon;
     });
     if (yaExiste === false) {
-        dragonesObservados.push(seleccionado);
+        dragonesObservados.push(seleccion);
 
         // Guardamos en el LocalStorage
         localStorage.setItem("coleccion", JSON.stringify(dragonesObservados));
         renderizarColeccion();
     }
 }
+
+//Mostrar la coleccion
+function renderizarColeccion() {
+    listaAvistados.innerHTML = "";
+    dragonesObservados.forEach(function (dragon) {
+        let li = document.createElement("li");
+        li.innerHTML = `
+            <span>${dragon.nombre}</span> 
+            <button id="borrar-${dragon.id}">Eliminar</button>`;
+        listaAvistados.appendChild(li);
+        let botonBorrar = document.getElementById(`borrar-${dragon.id}`);
+        botonBorrar.addEventListener("click", function () {
+            eliminarDeColeccion(dragon.id);
+        });
+    });
+}
+
+function eliminarDeColeccion(idParaBorrar) {
+    dragonesObservados = dragonesObservados.filter(function (dragon) {
+        return dragon.id !== idParaBorrar;
+    });
+
+    localStorage.setItem("coleccion", JSON.stringify(dragonesObservados));
+    renderizarColeccion();
+}
+
+renderizarDragones(dragones);
+renderizarColeccion();
