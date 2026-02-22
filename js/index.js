@@ -97,10 +97,25 @@ function renderizarDragones(listaDeDragones) {
     listaDeDragones.forEach(dragon => {
         let card = document.createElement("div");
         card.className = "tarjeta-dragon";
-        Card.innerHTML = `<h3>${dragon.nombre}</h3>
+        card.innerHTML = `<h3>${dragon.nombre}</h3>
             <p><strong>Elemento:</strong> ${dragon.elemento}</p>
             <p><strong>Rareza:</strong> ${dragon.rareza}</p>
             <button id="btn-${dragon.id}">¡Avistado!</button>`;
         contenedorDragones.appendChild(card);
     });
 }
+
+// 4. LA ORDEN DE EJECUCIÓN (Va aquí abajo, al final de todo)
+renderizarDragones(dragones);
+
+let buscar = document.getElementById("buscador");
+buscar.addEventListener("input", filtrarDragones)
+
+function filtrarDragones() {
+    let textoIngresado = buscar.value;
+    let dragonesFiltrados = dragones.filter(function (dragon) {
+        return dragon.nombre.includes(textoIngresado);
+    });
+    renderizarDragones(dragonesFiltrados);
+}
+
