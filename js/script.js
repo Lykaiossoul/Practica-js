@@ -90,6 +90,10 @@ const dragones = [
         rareza: "Comun",
     },
 ]
+
+let dragonesObservados = JSON.parse(localStorage.getItem("coleccion")) || [];
+let listaAvistados = document.getElementById("lista-avistados");
+
 const contenedorDragones = document.getElementById("contenedor-dragones");
 // 2. Creamos una función que se encargará de "dibujar" los dragones en el contenedor. Esta función recibirá una lista de dragones y generará el HTML necesario para mostrarlos.
 function renderizarDragones(listaDeDragones) {
@@ -102,6 +106,13 @@ function renderizarDragones(listaDeDragones) {
             <p><strong>Rareza:</strong> ${dragon.rareza}</p>
             <button id="btn-${dragon.id}">¡Avistado!</button>`;
         contenedorDragones.appendChild(card);
+        // 1. Capturamos el botón que acabamos de crear
+        let boton = document.getElementById("btn-" + dragon.id);
+
+        // 2. Le asignamos el evento de clic
+        boton.addEventListener("click", function () {
+            añadirAColeccion(dragon.id);
+        });
     });
 }
 
@@ -119,3 +130,19 @@ function filtrarDragones() {
     renderizarDragones(dragonesFiltrados);
 }
 
+
+function añadirAColeccion(idDelDragon) {
+    const seleccion = dragones.find(function (dragon) {
+        return dragon.id === idDelDragon;
+    })
+    const yaExiste = dragonesObservados.some(function (dragon) {
+        return dragon.id === idDelDragon;
+    });
+    if (yaExiste === false) {
+        dragonesObservados.push(seleccionado);
+
+        // Guardamos en el LocalStorage
+        localStorage.setItem("coleccion", JSON.stringify(dragonesObservados));
+        renderizarColeccion();
+    }
+}
