@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto JS</title>
+    <title>Bestiario de Dragones</title>
     <script src="./js/index.js" defer></script>
 </head>
+
 <body>
-    
+    <header class="encabezado-principal">
+        <h1>El Bestiario Interactivo</h1>
+        <p>Busca y registra las criaturas que encuentres en tu aventura.</p>
+    </header>
+
+    <main class="contenido-principal">
+
+        <section class="seccion-buscador">
+            <input type="text" id="buscador" placeholder="Buscar dragón por nombre...">
+        </section>
+
+        <section class="seccion-catalogo">
+            <h2>Especies Conocidas</h2>
+            <div id="contenedor-dragones" class="grilla-dragones">
+            </div>
+        </section>
+
+        <section class="seccion-coleccion">
+            <h2>Tus Dragones Avistados</h2>
+            <ul id="lista-avistados" class="lista-dragones-guardados">
+            </ul>
+        </section>
+
+    </main>
+
+    <script defer src="./script.js"></script>
+
 </body>
+
 </html>
