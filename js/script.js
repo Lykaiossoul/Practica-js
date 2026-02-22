@@ -95,7 +95,7 @@ let dragonesObservados = JSON.parse(localStorage.getItem("coleccion")) || [];
 const listaAvistados = document.getElementById("lista-avistados");
 const contenedorDragones = document.getElementById("contenedor-dragones");
 
-// 2. Creamos una función que se encargará de "dibujar" los dragones en el contenedor. Esta función recibirá una lista de dragones y generará el HTML necesario para mostrarlos.
+// 2. Creacion de las tarjetas de dragones.
 function renderizarDragones(listaDeDragones) {
     contenedorDragones.innerHTML = "";
     listaDeDragones.forEach(dragon => {
@@ -106,10 +106,10 @@ function renderizarDragones(listaDeDragones) {
             <p><strong>Rareza:</strong> ${dragon.rareza}</p>
             <button id="btn-${dragon.id}">¡Encontrado!</button>`;
         contenedorDragones.appendChild(card);
-        // 1. Capturamos el botón que acabamos de crear
+        // 1. Seleccionamos el botón de cada tarjeta
         let boton = document.getElementById("btn-" + dragon.id);
 
-        // 2. Le asignamos el evento de clic
+        // 2. Asignar evento click a cada botón
         boton.addEventListener("click", function () {
             añadirAColeccion(dragon.id);
         });
@@ -119,6 +119,7 @@ function renderizarDragones(listaDeDragones) {
 const buscar = document.getElementById("buscador");
 buscar.addEventListener("input", filtrarDragones)
 
+//filtrar por nombre
 function filtrarDragones() {
     let textoIngresado = buscar.value;
     let dragonesFiltrados = dragones.filter(function (dragon) {
@@ -127,7 +128,7 @@ function filtrarDragones() {
     renderizarDragones(dragonesFiltrados);
 }
 
-
+//añadir a la coleccion
 function añadirAColeccion(idDelDragon) {
     const seleccion = dragones.find(function (dragon) {
         return dragon.id === idDelDragon;
@@ -154,12 +155,14 @@ function renderizarColeccion() {
             <button id="borrar-${dragon.id}">Eliminar</button>`;
         listaAvistados.appendChild(li);
         let botonBorrar = document.getElementById(`borrar-${dragon.id}`);
+        //Asignar evento click a cada boton de eliminar
         botonBorrar.addEventListener("click", function () {
             eliminarDeColeccion(dragon.id);
         });
     });
 }
 
+//Borrar de la coleccion
 function eliminarDeColeccion(idParaBorrar) {
     dragonesObservados = dragonesObservados.filter(function (dragon) {
         return dragon.id !== idParaBorrar;
