@@ -1,99 +1,115 @@
-const dragones = [
-    {
-        id: 1,
-        nombre: "Skynight",
-        elemento: "Oscuridad",
-        rareza: "Legendario",
-    },
-    {
-        id: 2,
-        nombre: "Frostbite",
-        elemento: "Hielo",
-        rareza: "Raro",
-    },
-    {
-        id: 3,
-        nombre: "Sorana",
-        elemento: "Aire",
-        rareza: "Comun",
-    },
-    {
-        id: 4,
-        nombre: "Aobi",
-        elemento: "Fuego",
-        rareza: "Epico",
-    },
-    {
-        id: 5,
-        nombre: "Hikari",
-        elemento: "Luz",
-        rareza: "Poco comun",
-    },
-    {
-        id: 6,
-        nombre: "Ikazuchi",
-        elemento: "Electrico",
-        rareza: "Comun",
-    },
-    {
-        id: 7,
-        nombre: "Shinme",
-        elemento: "Tierra",
-        rareza: "Raro",
-    },
-    {
-        id: 8,
-        nombre: "Kuro",
-        elemento: "Oscuridad",
-        rareza: "Poco comun",
-    },
-    {
-        id: 9,
-        nombre: "Syrcasca",
-        elemento: "Agua",
-        rareza: "Epico",
-    },
-    {
-        id: 10,
-        nombre: "Vulcanus",
-        elemento: "Fuego",
-        rareza: "Raro",
-    },
-    {
-        id: 11,
-        nombre: "Aurora",
-        elemento: "Hielo",
-        rareza: "Legendario",
-    },
-    {
-        id: 12,
-        nombre: "Nimara",
-        elemento: "Agua",
-        rareza: "Comun",
-    },
-    {
-        id: 13,
-        nombre: "Ygdrasil",
-        elemento: "Tierra",
-        rareza: "Legendario",
-    },
-    {
-        id: 14,
-        nombre: "Thunderclaw",
-        elemento: "Electrico",
-        rareza: "Epico",
-    },
-    {
-        id: 15,
-        nombre: "Zpyra",
-        elemento: "Luz",
-        rareza: "Comun",
-    },
-]
+// const dragones = [
+//     {
+//         id: 1,
+//         nombre: "Skynight",
+//         elemento: "Oscuridad",
+//         rareza: "Legendario",
+//     },
+//     {
+//         id: 2,
+//         nombre: "Frostbite",
+//         elemento: "Hielo",
+//         rareza: "Raro",
+//     },
+//     {
+//         id: 3,
+//         nombre: "Sorana",
+//         elemento: "Aire",
+//         rareza: "Comun",
+//     },
+//     {
+//         id: 4,
+//         nombre: "Aobi",
+//         elemento: "Fuego",
+//         rareza: "Epico",
+//     },
+//     {
+//         id: 5,
+//         nombre: "Hikari",
+//         elemento: "Luz",
+//         rareza: "Poco comun",
+//     },
+//     {
+//         id: 6,
+//         nombre: "Ikazuchi",
+//         elemento: "Electrico",
+//         rareza: "Comun",
+//     },
+//     {
+//         id: 7,
+//         nombre: "Shinme",
+//         elemento: "Tierra",
+//         rareza: "Raro",
+//     },
+//     {
+//         id: 8,
+//         nombre: "Kuro",
+//         elemento: "Oscuridad",
+//         rareza: "Poco comun",
+//     },
+//     {
+//         id: 9,
+//         nombre: "Syrcasca",
+//         elemento: "Agua",
+//         rareza: "Epico",
+//     },
+//     {
+//         id: 10,
+//         nombre: "Vulcanus",
+//         elemento: "Fuego",
+//         rareza: "Raro",
+//     },
+//     {
+//         id: 11,
+//         nombre: "Aurora",
+//         elemento: "Hielo",
+//         rareza: "Legendario",
+//     },
+//     {
+//         id: 12,
+//         nombre: "Nimara",
+//         elemento: "Agua",
+//         rareza: "Comun",
+//     },
+//     {
+//         id: 13,
+//         nombre: "Ygdrasil",
+//         elemento: "Tierra",
+//         rareza: "Legendario",
+//     },
+//     {
+//         id: 14,
+//         nombre: "Thunderclaw",
+//         elemento: "Electrico",
+//         rareza: "Epico",
+//     },
+//     {
+//         id: 15,
+//         nombre: "Zpyra",
+//         elemento: "Luz",
+//         rareza: "Comun",
+//     },
+// ]
 
+const jsonDragones = "./db/data.json";
+let dragones = [];
 let dragonesObservados = JSON.parse(localStorage.getItem("coleccion")) || [];
 const listaAvistados = document.getElementById("lista-avistados");
 const contenedorDragones = document.getElementById("contenedor-dragones");
+const buscar = document.getElementById("buscador");
+
+function arrayDragones() {
+    fetch(jsonDragones)
+        .then(response => response.json())
+        .then(data => {
+            dragones = data;
+            renderizarDragones(dragones);
+            renderizarColeccion();
+        });
+}
+
+
+
 
 // 2. Creacion de las tarjetas de dragones.
 function renderizarDragones(listaDeDragones) {
@@ -116,7 +132,7 @@ function renderizarDragones(listaDeDragones) {
     });
 }
 
-const buscar = document.getElementById("buscador");
+
 buscar.addEventListener("input", filtrarDragones)
 
 //filtrar por nombre
@@ -171,6 +187,4 @@ function eliminarDeColeccion(idParaBorrar) {
     localStorage.setItem("coleccion", JSON.stringify(dragonesObservados));
     renderizarColeccion();
 }
-
-renderizarDragones(dragones);
-renderizarColeccion();
+arrayDragones();
