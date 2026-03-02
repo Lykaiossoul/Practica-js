@@ -94,9 +94,9 @@
 const jsonDragones = "./db/data.json";
 let dragones = [];
 let dragonesObservados = JSON.parse(localStorage.getItem("coleccion")) || [];
-const listaAvistados = document.getElementById("lista-avistados");
-const contenedorDragones = document.getElementById("contenedor-dragones");
-const buscar = document.getElementById("buscador");
+let listaAvistados = document.getElementById("lista-avistados");
+let contenedorDragones = document.getElementById("contenedor-dragones");
+let buscar = document.getElementById("buscador");
 
 function arrayDragones() {
     fetch(jsonDragones)
@@ -105,7 +105,8 @@ function arrayDragones() {
             dragones = data;
             renderizarDragones(dragones);
             renderizarColeccion();
-        });
+        })
+        .catch(error => console.log("Hubo un error", error));
 }
 
 
@@ -126,7 +127,7 @@ function renderizarDragones(listaDeDragones) {
         let boton = document.getElementById("btn-" + dragon.id);
 
         // 2. Asignar evento click a cada botón
-        boton.addEventListener("click", function () {
+        boton.addEventListener("click", () => {
             añadirAColeccion(dragon.id);
         });
     });
@@ -138,20 +139,14 @@ buscar.addEventListener("input", filtrarDragones)
 //filtrar por nombre
 function filtrarDragones() {
     let textoIngresado = buscar.value;
-    let dragonesFiltrados = dragones.filter(function (dragon) {
-        return dragon.nombre.includes(textoIngresado);
-    });
+    let dragonesFiltrados = dragones.filter(dragon => dragon.nombre.includes(textoIngresado));
     renderizarDragones(dragonesFiltrados);
 }
 
 //añadir a la coleccion
 function añadirAColeccion(idDelDragon) {
-    const seleccion = dragones.find(function (dragon) {
-        return dragon.id === idDelDragon;
-    })
-    const yaExiste = dragonesObservados.some(function (dragon) {
-        return dragon.id === idDelDragon;
-    });
+    const seleccion = dragones.find(dragon => dragon.id === idDelDragon);
+    const yaExiste = dragonesObservados.some(dragon => dragon.id === idDelDragon);
     if (yaExiste === false) {
         dragonesObservados.push(seleccion);
 
@@ -164,7 +159,7 @@ function añadirAColeccion(idDelDragon) {
 //Mostrar la coleccion
 function renderizarColeccion() {
     listaAvistados.innerHTML = "";
-    dragonesObservados.forEach(function (dragon) {
+    dragonesObservados.forEach(dragon => {
         let li = document.createElement("li");
         li.innerHTML = `
             <span>${dragon.nombre}</span> 
@@ -172,17 +167,15 @@ function renderizarColeccion() {
         listaAvistados.appendChild(li);
         let botonBorrar = document.getElementById(`borrar-${dragon.id}`);
         //Asignar evento click a cada boton de eliminar
-        botonBorrar.addEventListener("click", function () {
+        botonBorrar.addEventListener("click", () => {
             eliminarDeColeccion(dragon.id);
         });
     });
 }
 
-//Borrar de la coleccion
+//Borrar de la coleccion 
 function eliminarDeColeccion(idParaBorrar) {
-    dragonesObservados = dragonesObservados.filter(function (dragon) {
-        return dragon.id !== idParaBorrar;
-    });
+    dragonesObservados = dragonesObservados.filter(dragon => dragon.id !== idParaBorrar);
 
     localStorage.setItem("coleccion", JSON.stringify(dragonesObservados));
     renderizarColeccion();
