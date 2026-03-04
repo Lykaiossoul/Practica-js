@@ -1,20 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bestiario de Dragones</title>
+    <title>Album de Colección de Criaturas Mágicas</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <script defer src="./js/album.js"></script>
 </head>
+
 <body>
     <header>
-        <h1>Tu Album de encuentros</h1>
+        <h1>Tu album de encuentros</h1>
         <p>Aqui esta tu coleccion de las criaturas magicas que has descubierto.</p>
 
         <nav class="pag-principal">
             <a href="../index.html" id="link-index">Volver a Explorar</a>
         </nav>
     </header>
-    
+    <main>
+        <section class="seccion-filtros">
+            <h2>Filtrar por:</h2>
+            <div class="contenedor-filtros">
+                <select id="filtro-rareza" class="select-filtro">
+                    <option value="todas">Todas las rarezas</option>
+                    <option value="comun">Común</option>
+                    <option value="poco-comun">Poco común</option>
+                    <option value="raro">Raro</option>
+                    <option value="epico">Épico</option>
+                    <option value="legendario">Legendario</option>
+                </select>
+
+                <select id="filtro-elemento" class="select-filtro">
+                    <option value="todos">Todos los elementos</option>
+                    <option value="fuego">Fuego</option>
+                    <option value="agua">Agua</option>
+                    <option value="tierra">Tierra</option>
+                    <option value="aire">Aire</option>
+                    <option value="electrico">Eléctrico</option>
+                    <option value="hielo">Hielo</option>
+                    <option value="luz">Luz</option>
+                    <option value="oscuridad">Oscuridad</option>
+                </select>
+            </div>
+        </section>
+        <section class="seccion-coleccion">
+            <div id="contenedor-coleccion" class="grilla-criaturas">
+            </div>
+        </section>
+    </main>
 </body>
+
 </html>
