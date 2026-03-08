@@ -91,12 +91,11 @@
 //     },
 // ]
 
-const jsonDragones = "./db/data.json";
-let dragones = [];
-let dragonesObservados = JSON.parse(localStorage.getItem("coleccion")) || [];
-let listaAvistados = document.getElementById("lista-avistados");
-let contenedorDragones = document.getElementById("contenedor-dragones");
-let buscar = document.getElementById("buscador");
+const jsonCriaturas = "./db/data.json";
+let criaturas = [];
+let coleccion = JSON.parse(localStorage.getItem("coleccion")) || [];
+let contenedorCriaturas = document.getElementById("contenedor-criaturas");
+let buscadorInput = document.getElementById("buscador-criaturas");
 
 function arrayDragones() {
     fetch(jsonDragones)
