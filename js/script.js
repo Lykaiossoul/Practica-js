@@ -97,17 +97,29 @@ let coleccion = JSON.parse(localStorage.getItem("coleccion")) || [];
 let contenedorCriaturas = document.getElementById("contenedor-criaturas");
 let buscadorInput = document.getElementById("buscador-criaturas");
 
-function arrayDragones() {
-    fetch(jsonDragones)
-        .then(response => response.json())
-        .then(data => {
-            dragones = data;
-            renderizarDragones(dragones);
-            renderizarColeccion();
-        })
-        .catch(error => console.log("Hubo un error", error));
-}
+// version fetch
+// function arrayCriaturas() {
+//     fetch(jsonCriaturas)
+//         .then(response => response.json())
+//         .then(data => {
+//             criaturas = data;
+//             renderizarCriaturas(criaturas);
+//         })
+//         .catch(error => console.log("Hubo un error", error));
+// }
 
+// version async-await
+async function arrayCriaturas() {
+    try {
+        let response = await fetch(jsonCriaturas);
+        let data = await response.json();
+
+        criaturas = data;
+        renderizarCriaturas(criaturas);
+    } catch (error) {
+        contenedorCriaturas.innerHTML = `<p>Los pergaminos se han perdido. Error al cargar las criaturas.</p>`;
+    }
+}
 
 
 
