@@ -122,27 +122,92 @@ async function arrayCriaturas() {
 }
 
 
-
-// 2. Creacion de las tarjetas de dragones.
-function renderizarDragones(listaDeDragones) {
-    contenedorDragones.innerHTML = "";
-    listaDeDragones.forEach(dragon => {
+//1.Creacion de tarjetas de criaturas
+function renderizarCriaturas(TarjetasCriaturas) {
+    contenedorCriaturas.innerHTML = "";
+    TarjetasCriaturas.forEach(criatura => {
         let card = document.createElement("div");
-        card.className = "tarjeta-dragon";
-        card.innerHTML = `<h3>${dragon.nombre}</h3>
-            <p><strong>Elemento:</strong> ${dragon.elemento}</p>
-            <p><strong>Rareza:</strong> ${dragon.rareza}</p>
-            <button id="btn-${dragon.id}">¡Encontrado!</button>`;
-        contenedorDragones.appendChild(card);
-        // 1. Seleccionamos el botón de cada tarjeta
-        let boton = document.getElementById("btn-" + dragon.id);
+        card.className = "tarjeta-criatura";
+        if (criatura.descubierto === false) {
+            // Asignamos las dos clases juntas separadas por un espacio
+            card.className = "tarjeta-criatura silueta";
+            card.innerHTML = `
+                <img src="${criatura.imagen}" alt="Criatura misteriosa">
+                <h3>???</h3>
+                <p><strong>Elemento:</strong> Desconocido</p>
+                <p><strong>Rareza:</strong> Desconocida</p>
+                <button id="btn-${criatura.id}">Registrar</button>`;
 
-        // 2. Asignar evento click a cada botón
-        boton.addEventListener("click", () => {
-            añadirAColeccion(dragon.id);
+        } else {
+            //aqui se quita la clase de silueta
+            card.className = "tarjeta-criatura";
+            card.innerHTML = `
+                <img src="${criatura.imagen}" alt="${criatura.nombre}">
+                <h3>${criatura.nombre}</h3>
+                <p><strong>Elemento:</strong> ${criatura.elemento}</p>
+                <p><strong>Rareza:</strong> ${criatura.rareza}</p>
+                <p><strong>Avistamientos:</strong> ${criatura.avistamientos}</p>
+                <button id="btn-${criatura.id}">Nueva observacion</button>`;
+        }
+        contenedorCriaturas.appendChild(card);
+        let boton = document.getElementById("btn-" + criatura.id);
+        boton.addEventListener("click", () =>{
+            actualizacionDeObservaciones(criatura.id);
         });
-    });
+        })
 }
+
+//llamamos a la funcion que acabamos de crear que es "renderizarCriaturas" para que se ejecute, si no, no aparece y en parentesis va el let que creamos arriba vacio pero que luego le almacenamos los datos del array json.
+
+arrayCriaturas()
+
+// //if usando .classList.add()
+// if (criatura.descubierto === false) {
+//     // .add() simplemente "pega" la clase extra al final de la lista
+//     card.classList.add("silueta");
+//     card.innerHTML = `
+//                 <img src="${criatura.imagen}" alt="Criatura misteriosa">
+//                 <h3>???</h3>
+//                 <p><strong>Elemento:</strong> Desconocido</p>
+//                 <p><strong>Rareza:</strong> Desconocida</p>
+//                 <button id="btn-${criatura.id}">Registrar</button>`;
+// } else {
+//     // Si ya está descubierta, no agregamos "silueta", 
+//     // y si la tuviera de antes, podríamos usar .remove("silueta")
+//     card.innerHTML = `
+//                 <img src="${criatura.imagen}" alt="${criatura.nombre}">
+//                 <h3>${criatura.nombre}</h3>
+//                 <p><strong>Elemento:</strong> ${criatura.elemento}</p>
+//                 <p><strong>Rareza:</strong> ${criatura.rareza}</p>
+//                 <p><strong>Avistamientos:</strong> ${criatura.avistamientos}</p>
+//                 <button id="btn-${criatura.id}">Avistar de nuevo</button>`;
+// }
+
+
+
+
+
+// // 2. Creacion de las tarjetas de dragones.
+// function renderizarDragones(listaDeDragones) {
+//     contenedorDragones.innerHTML = "";
+//     listaDeDragones.forEach(dragon => {
+//         let card = document.createElement("div");
+//         card.className = "tarjeta-dragon";
+//         card.innerHTML = `<h3>${dragon.nombre}</h3>
+//             <p><strong>Elemento:</strong> ${dragon.elemento}</p>
+//             <p><strong>Rareza:</strong> ${dragon.rareza}</p>
+//             <button id="btn-${dragon.id}">¡Encontrado!</button>`;
+//         contenedorDragones.appendChild(card);
+//         // 1. Seleccionamos el botón de cada tarjeta
+//         let boton = document.getElementById("btn-" + dragon.id);
+
+//         // 2. Asignar evento click a cada botón
+//         boton.addEventListener("click", () => {
+//             añadirAColeccion(dragon.id);
+//         });
+//     });
+// }
+
 
 
 buscar.addEventListener("input", filtrarDragones)

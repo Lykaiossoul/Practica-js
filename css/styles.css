@@ -154,3 +154,9 @@ header p {
     background-color: var(--dorado);
     color: var(--tinta);
 }
+
+/* Filtro para ocultar la criatura */
+.silueta img {
+    filter: brightness(0); /* Hace que la imagen sea una sombra negra */
+    opacity: 0.7;          /* La hace un poco transparente para que no sea un bloque sólido */
+}
