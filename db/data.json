@@ -4,7 +4,7 @@
                 "nombre": "Skynight",
                 "elemento": "Oscuridad",
                 "rareza": "Legendario",
-                "imagen": "./assets/skynight.jpg",
+                "imagen": "./assets/img/Skynight-Cara.jpg.jpeg",
                 "descripcion": "Criatura sigilosa y de carácter solitario. Prefiere observar desde la distancia y posee un temperamento analítico y distante.",
                 "descubierto": false,
                 "avistamientos": 0
