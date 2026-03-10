@@ -109,7 +109,14 @@ let buscadorInput = document.getElementById("buscador-criaturas");
 // }
 
 // version async-await
+
 async function arrayCriaturas() {
+    let datosDelColeccionista = JSON.parse(localStorage.getItem("registroDeColeccion"));
+    if (datosDelColeccionista) {
+        criaturas = datosDelColeccionista;
+        renderizarCriaturas(criaturas)}
+        else {
+        
     try {
         let response = await fetch(jsonCriaturas);
         let data = await response.json();
@@ -118,7 +125,7 @@ async function arrayCriaturas() {
         renderizarCriaturas(criaturas);
     } catch (error) {
         contenedorCriaturas.innerHTML = `<p>Los pergaminos se han perdido. Error al cargar las criaturas.</p>`;
-    }
+    }}
 }
 
 
@@ -166,6 +173,7 @@ function actualizacionDeObservaciones(idDeCriatura){
     let criaturaSeleccionada = criaturas.find(criatura => criatura.id === idDeCriatura);
     criaturaSeleccionada.descubierto = true;
     criaturaSeleccionada.avistamientos++;
+    localStorage.setItem("registroDeColeccion", JSON.stringify(criaturas))
     renderizarCriaturas(criaturas);
 }
 
@@ -195,50 +203,3 @@ function actualizacionDeObservaciones(idDeCriatura){
 
 
 
-buscar.addEventListener("input", filtrarDragones)
-
-//filtrar por nombre
-function filtrarDragones() {
-    let textoIngresado = buscar.value;
-    let dragonesFiltrados = dragones.filter(dragon => dragon.nombre.includes(textoIngresado));
-    renderizarDragones(dragonesFiltrados);
-}
-
-//añadir a la coleccion
-function añadirAColeccion(idDelDragon) {
-    const seleccion = dragones.find(dragon => dragon.id === idDelDragon);
-    const yaExiste = dragonesObservados.some(dragon => dragon.id === idDelDragon);
-    if (yaExiste === false) {
-        dragonesObservados.push(seleccion);
-
-        // Guardamos en el LocalStorage
-        localStorage.setItem("coleccion", JSON.stringify(dragonesObservados));
-        renderizarColeccion();
-    }
-}
-
-//Mostrar la coleccion
-function renderizarColeccion() {
-    listaAvistados.innerHTML = "";
-    dragonesObservados.forEach(dragon => {
-        let li = document.createElement("li");
-        li.innerHTML = `
-            <span>${dragon.nombre}</span> 
-            <button id="borrar-${dragon.id}">Eliminar</button>`;
-        listaAvistados.appendChild(li);
-        let botonBorrar = document.getElementById(`borrar-${dragon.id}`);
-        //Asignar evento click a cada boton de eliminar
-        botonBorrar.addEventListener("click", () => {
-            eliminarDeColeccion(dragon.id);
-        });
-    });
-}
-
-//Borrar de la coleccion 
-function eliminarDeColeccion(idParaBorrar) {
-    dragonesObservados = dragonesObservados.filter(dragon => dragon.id !== idParaBorrar);
-
-    localStorage.setItem("coleccion", JSON.stringify(dragonesObservados));
-    renderizarColeccion();
-}
-arrayDragones();
