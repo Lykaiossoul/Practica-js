@@ -151,15 +151,24 @@ function renderizarCriaturas(TarjetasCriaturas) {
         }
         contenedorCriaturas.appendChild(card);
         let boton = document.getElementById("btn-" + criatura.id);
-        boton.addEventListener("click", () =>{
+        boton.addEventListener("click", () => {
             actualizacionDeObservaciones(criatura.id);
         });
-        })
+    })
 }
 
-//llamamos a la funcion que acabamos de crear que es "renderizarCriaturas" para que se ejecute, si no, no aparece y en parentesis va el let que creamos arriba vacio pero que luego le almacenamos los datos del array json.
-
+//llamamos a la funcion async porque esta ya tiene al final de su codigo el llamado de la 
+// funcion renderizar criaturas, con esto llamamos a ver el resultado final de la union de ambas funciones.
 arrayCriaturas()
+
+function actualizacionDeObservaciones(idDeCriatura){
+    //hacemos una varaible para almacenar a la criatura que se encontro en cada caso y le pedimos que busque una a una por el array json
+    let criaturaSeleccionada = criaturas.find(criatura => criatura.id === idDeCriatura);
+    criaturaSeleccionada.descubierto = true;
+    criaturaSeleccionada.avistamientos++;
+    renderizarCriaturas(criaturas);
+}
+
 
 // //if usando .classList.add()
 // if (criatura.descubierto === false) {
@@ -183,30 +192,6 @@ arrayCriaturas()
 //                 <button id="btn-${criatura.id}">Avistar de nuevo</button>`;
 // }
 
-
-
-
-
-// // 2. Creacion de las tarjetas de dragones.
-// function renderizarDragones(listaDeDragones) {
-//     contenedorDragones.innerHTML = "";
-//     listaDeDragones.forEach(dragon => {
-//         let card = document.createElement("div");
-//         card.className = "tarjeta-dragon";
-//         card.innerHTML = `<h3>${dragon.nombre}</h3>
-//             <p><strong>Elemento:</strong> ${dragon.elemento}</p>
-//             <p><strong>Rareza:</strong> ${dragon.rareza}</p>
-//             <button id="btn-${dragon.id}">¡Encontrado!</button>`;
-//         contenedorDragones.appendChild(card);
-//         // 1. Seleccionamos el botón de cada tarjeta
-//         let boton = document.getElementById("btn-" + dragon.id);
-
-//         // 2. Asignar evento click a cada botón
-//         boton.addEventListener("click", () => {
-//             añadirAColeccion(dragon.id);
-//         });
-//     });
-// }
 
 
 
