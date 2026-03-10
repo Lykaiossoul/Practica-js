@@ -93,7 +93,7 @@
 
 const jsonCriaturas = "./db/data.json";
 let criaturas = [];
-let coleccion = JSON.parse(localStorage.getItem("coleccion")) || [];
+let coleccion = JSON.parse(localStorage.getItem("registroDeColeccion")) || [];
 let contenedorCriaturas = document.getElementById("contenedor-criaturas");
 let buscadorInput = document.getElementById("buscador-criaturas");
 
@@ -114,18 +114,20 @@ async function arrayCriaturas() {
     let datosDelColeccionista = JSON.parse(localStorage.getItem("registroDeColeccion"));
     if (datosDelColeccionista) {
         criaturas = datosDelColeccionista;
-        renderizarCriaturas(criaturas)}
-        else {
-        
-    try {
-        let response = await fetch(jsonCriaturas);
-        let data = await response.json();
-
-        criaturas = data;
         renderizarCriaturas(criaturas);
-    } catch (error) {
-        contenedorCriaturas.innerHTML = `<p>Los pergaminos se han perdido. Error al cargar las criaturas.</p>`;
-    }}
+    }
+    else {
+
+        try {
+            let response = await fetch(jsonCriaturas);
+            let data = await response.json();
+
+            criaturas = data;
+            renderizarCriaturas(criaturas);
+        } catch (error) {
+            contenedorCriaturas.innerHTML = `<p>Los pergaminos se han perdido. Error al cargar las criaturas.</p>`;
+        }
+    }
 }
 
 
@@ -168,7 +170,7 @@ function renderizarCriaturas(TarjetasCriaturas) {
 // funcion renderizar criaturas, con esto llamamos a ver el resultado final de la union de ambas funciones.
 arrayCriaturas()
 
-function actualizacionDeObservaciones(idDeCriatura){
+function actualizacionDeObservaciones(idDeCriatura) {
     //hacemos una varaible para almacenar a la criatura que se encontro en cada caso y le pedimos que busque una a una por el array json
     let criaturaSeleccionada = criaturas.find(criatura => criatura.id === idDeCriatura);
     criaturaSeleccionada.descubierto = true;
@@ -189,7 +191,7 @@ function actualizacionDeObservaciones(idDeCriatura){
 //                 <p><strong>Rareza:</strong> Desconocida</p>
 //                 <button id="btn-${criatura.id}">Registrar</button>`;
 // } else {
-//     // Si ya está descubierta, no agregamos "silueta", 
+//     // Si ya está descubierta, no agregamos "silueta",
 //     // y si la tuviera de antes, podríamos usar .remove("silueta")
 //     card.innerHTML = `
 //                 <img src="${criatura.imagen}" alt="${criatura.nombre}">
