@@ -88,11 +88,19 @@ function actualizacionDeObservaciones(idDeCriatura) {
 
 buscadorInput.addEventListener("input", function () {
     let textoBuscado = buscadorInput.value;
-    let resultadoDeBusqueda = criaturas.filter(function (criatura) {
-        return criatura.nombre.includes(textoBuscado);
-    })
-    renderizarCriaturas(resultadoDeBusqueda);
-})
+    if (textoBuscado === "") {
+        //llamamos al array cuando dejamos a la casilla de buscar vacia
+        renderizarCriaturas(criaturas);
+    }
+    else {
+        let resultadoDeBusqueda = criaturas.filter(function (criatura) {
+            return criatura.nombre.includes(textoBuscado) && criatura.descubierto === true;
+        });
+        //nueva array llamada con el filtro de busqueda textual
+        renderizarCriaturas(resultadoDeBusqueda);
+    }
+
+});
 
 
 // //if usando .classList.add()
