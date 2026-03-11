@@ -68,6 +68,26 @@ function alternarFavorito(idDelFavorito) {
     }
 }
 
+function combinarFiltros() {
+    let filtrosCombinados = misCriaturas;
+    let elementoElegido = filtroElemento.value;
+    let rarezaElegida = filtroRareza.value;
+    let favoritosElegidos = filtroFavoritos.value;
+if (elementoElegido !== "todos") {
+filtrosCombinados = filtrosCombinados.filter(criatura => criatura.elemento === elementoElegido);
+}
+if (rarezaElegida !== "todas") {
+    filtrosCombinados = filtrosCombinados.filter(criatura => criatura.rareza === rarezaElegida);
+}
+if (favoritosElegidos !== "todos") {
+    filtrosCombinados = filtrosCombinados.filter(criatura => criatura.favorito === true);
+}
+
+    renderizarCriaturas(filtrosCombinados);
+
+}
+
+
 let filtroElemento = document.getElementById("filtro-elemento");
 let filtroRareza = document.getElementById("filtro-rareza");
 let filtroFavoritos = document.getElementById("filtro-favoritos");
@@ -75,10 +95,10 @@ let filtroFavoritos = document.getElementById("filtro-favoritos");
 //ahora llamamos a las variables que tomaron la id
 
 //varaible del selector por elementos
-filtroElemento.addEventListener("change", () => {});
+filtroElemento.addEventListener("change", () => {combinarFiltros();});
 
 //variable del selector por rareza
-filtroRareza.addEventListener("change", () => {});
+filtroRareza.addEventListener("change", () => {combinarFiltros();});
 
 //variable del selector por favoritos
-filtroFavoritos.addEventListener("change", () => {});
+filtroFavoritos.addEventListener("change", () => {combinarFiltros();});
