@@ -1,6 +1,7 @@
 const jsonCriaturas = "../db/data.json";
 let criaturasDelAlbum = [];
 let contenedorColeccion = document.getElementById("contenedor-coleccion");
+let misCriaturas = [];
 
 
 async function cargarAlbum() {
@@ -15,7 +16,7 @@ async function cargarAlbum() {
             criaturasDelAlbum = await respuesta.json();
         }
         //pero como cargamos todas las criaturas ¿ debemos Filtramos para que el album solo muestre las descubiertas
-        let misCriaturas = criaturasDelAlbum.filter(criatura => criatura.descubierto === true);
+        misCriaturas = criaturasDelAlbum.filter(criatura => criatura.descubierto === true);
         //ahora llamamos(renderizar) con la funcion del diseño de las tarjetas en la nueva variable que tiene las criaturas ya filtradas
         renderizarCriaturas(misCriaturas);
     } catch (error) {
