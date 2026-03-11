@@ -29,6 +29,8 @@ function renderizarCriaturas(TarjetasCriaturas) {
     TarjetasCriaturas.forEach(criatura => {
         let card = document.createElement("div");
         card.className = "tarjeta-criatura";
+        //creando una variable para la ruta de la imagen, IA guia este metodo nuevo para mi
+        let rutaImagenParaAlbum = "." + criatura.imagen;
         let iconoFavorito = "";
         if (criatura.favorito === true) {
             iconoFavorito = "★"; //esta estrella me la dio la IA, asi que espero que se pueda usar
@@ -36,7 +38,7 @@ function renderizarCriaturas(TarjetasCriaturas) {
             iconoFavorito = "☆";
         }
         card.innerHTML = `
-                <img src="${criatura.imagen}" alt="${criatura.nombre}">
+                <img src="${rutaImagenParaAlbum}" alt="${criatura.nombre}">
                 <h3>${criatura.nombre}</h3>
                 <p><strong>Elemento:</strong> ${criatura.elemento}</p>
                 <p><strong>Rareza:</strong> ${criatura.rareza}</p>
@@ -48,4 +50,20 @@ function renderizarCriaturas(TarjetasCriaturas) {
             alternarFavorito(criatura.id);
         });
     });
+}
+
+function alternarFavorito(idDelFavorito) {
+    let criaturaSeleccionada = criaturasDelAlbum.find(criatura => criatura.id === idDelFavorito);
+    if (criaturaSeleccionada.favorito === true) {
+        criaturaSeleccionada.favorito = false;
+    } else {
+        criaturaSeleccionada.favorito = true;
+    }
+    localStorage.setItem("registroDeColeccion", JSON.stringify(criaturasDelAlbum));
+    let botonDeFavorito = document.getElementById("fav-" + idDelFavorito);
+    if (criaturaSeleccionada.favorito === true) {
+        botonDeFavorito.innerText = "★";
+    } else {
+        botonDeFavorito.innerText = "☆";
+    }
 }
