@@ -21,6 +21,10 @@ async function cargarAlbum() {
         renderizarCriaturas(misCriaturas);
     } catch (error) {
         console.error("Error al cargar el álbum:", error);
+        contenedorColeccion.innerHTML = `<p class="mensaje-error">El álbum está sellado. No pudimos cargar tus criaturas descubiertas.</p>`;
+    }
+    finally {
+        console.log("Proceso de carga del álbum finalizado.");
     }
 }
 cargarAlbum()

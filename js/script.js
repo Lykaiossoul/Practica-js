@@ -24,7 +24,11 @@ async function arrayCriaturas() {
             criaturas = data;
             renderizarCriaturas(criaturas);
         } catch (error) {
+            console.error("Error al cargar las criaturas:", error);
             contenedorCriaturas.innerHTML = `<p>Los pergaminos se han perdido. Error al cargar las criaturas.</p>`;
+        }
+        finally {
+            console.log("Petición de criaturas finalizada.");
         }
     }
 }
@@ -79,7 +83,7 @@ function actualizacionDeObservaciones(idDeCriatura) {
     if (criaturaSeleccionada.avistamientos === 11) {
         Swal.fire({
             position: 'top',
-            theme:'borderless',
+            theme: 'borderless',
             title: "¡Felicidades!",
             text: "Has logrado ver 11 veces esta criatura.",
             // imageUrl: "https://unsplash.it/400/200",
