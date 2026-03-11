@@ -75,10 +75,11 @@ function combinarFiltros() {
     let rarezaElegida = filtroRareza.value;
     let favoritosElegidos = filtroFavoritos.value;
 if (elementoElegido !== "todos") {
-filtrosCombinados = filtrosCombinados.filter(criatura => criatura.elemento === elementoElegido);
+    //metodo .replace('é', 'e') aplicado extrictamente por IA Porque no encontre alguna forma vista en clases.
+filtrosCombinados = filtrosCombinados.filter(criatura => criatura.elemento.toLowerCase().replace('é', 'e') === elementoElegido);
 }
 if (rarezaElegida !== "todas") {
-    filtrosCombinados = filtrosCombinados.filter(criatura => criatura.rareza === rarezaElegida);
+    filtrosCombinados = filtrosCombinados.filter(criatura => criatura.rareza.toLowerCase().replace('é', 'e').replace("ú", "u") === rarezaElegida);
 }
 if (favoritosElegidos !== "todos") {
     filtrosCombinados = filtrosCombinados.filter(criatura => criatura.favorito === true);
