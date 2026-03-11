@@ -4,17 +4,6 @@ let criaturas = [];
 let contenedorCriaturas = document.getElementById("contenedor-criaturas");
 let buscadorInput = document.getElementById("buscador-criaturas");
 
-// version fetch
-// function arrayCriaturas() {
-//     fetch(jsonCriaturas)
-//         .then(response => response.json())
-//         .then(data => {
-//             criaturas = data;
-//             renderizarCriaturas(criaturas);
-//         })
-//         .catch(error => console.log("Hubo un error", error));
-// }
-
 // version async-await
 
 async function arrayCriaturas() {
@@ -102,28 +91,6 @@ buscadorInput.addEventListener("input", function () {
 
 });
 
-
-// //if usando .classList.add()
-// if (criatura.descubierto === false) {
-//     // .add() simplemente "pega" la clase extra al final de la lista
-//     card.classList.add("silueta");
-//     card.innerHTML = `
-//                 <img src="${criatura.imagen}" alt="Criatura misteriosa">
-//                 <h3>???</h3>
-//                 <p><strong>Elemento:</strong> Desconocido</p>
-//                 <p><strong>Rareza:</strong> Desconocida</p>
-//                 <button id="btn-${criatura.id}">Registrar</button>`;
-// } else {
-//     // Si ya está descubierta, no agregamos "silueta",
-//     // y si la tuviera de antes, podríamos usar .remove("silueta")
-//     card.innerHTML = `
-//                 <img src="${criatura.imagen}" alt="${criatura.nombre}">
-//                 <h3>${criatura.nombre}</h3>
-//                 <p><strong>Elemento:</strong> ${criatura.elemento}</p>
-//                 <p><strong>Rareza:</strong> ${criatura.rareza}</p>
-//                 <p><strong>Avistamientos:</strong> ${criatura.avistamientos}</p>
-//                 <button id="btn-${criatura.id}">Avistar de nuevo</button>`;
-// }
 
 
 

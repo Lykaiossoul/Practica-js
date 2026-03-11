@@ -74,19 +74,17 @@ function combinarFiltros() {
     let elementoElegido = filtroElemento.value;
     let rarezaElegida = filtroRareza.value;
     let favoritosElegidos = filtroFavoritos.value;
-if (elementoElegido !== "todos") {
-    //metodo .replace('é', 'e') aplicado extrictamente por IA Porque no encontre alguna forma vista en clases.
-filtrosCombinados = filtrosCombinados.filter(criatura => criatura.elemento.toLowerCase().replace('é', 'e') === elementoElegido);
-}
-if (rarezaElegida !== "todas") {
-    filtrosCombinados = filtrosCombinados.filter(criatura => criatura.rareza.toLowerCase().replace('é', 'e').replace("ú", "u") === rarezaElegida);
-}
-if (favoritosElegidos !== "todos") {
-    filtrosCombinados = filtrosCombinados.filter(criatura => criatura.favorito === true);
-}
-
+    if (elementoElegido !== "todos") {
+        //metodo .replace('é', 'e') aplicado extrictamente por IA Porque no encontre alguna forma vista en clases.
+        filtrosCombinados = filtrosCombinados.filter(criatura => criatura.elemento.toLowerCase().replace('é', 'e') === elementoElegido);
+    }
+    if (rarezaElegida !== "todas") {
+        filtrosCombinados = filtrosCombinados.filter(criatura => criatura.rareza.toLowerCase().replace('é', 'e').replace("ú", "u") === rarezaElegida);
+    }
+    if (favoritosElegidos !== "todos") {
+        filtrosCombinados = filtrosCombinados.filter(criatura => criatura.favorito === true);
+    }
     renderizarCriaturas(filtrosCombinados);
-
 }
 
 
@@ -97,10 +95,10 @@ let filtroFavoritos = document.getElementById("filtro-favoritos");
 //ahora llamamos a las variables que tomaron la id
 
 //varaible del selector por elementos
-filtroElemento.addEventListener("change", () => {combinarFiltros();});
+filtroElemento.addEventListener("change", () => { combinarFiltros(); });
 
 //variable del selector por rareza
-filtroRareza.addEventListener("change", () => {combinarFiltros();});
+filtroRareza.addEventListener("change", () => { combinarFiltros(); });
 
 //variable del selector por favoritos
-filtroFavoritos.addEventListener("change", () => {combinarFiltros();});
+filtroFavoritos.addEventListener("change", () => { combinarFiltros(); });
