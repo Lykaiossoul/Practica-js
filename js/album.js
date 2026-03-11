@@ -67,3 +67,18 @@ function alternarFavorito(idDelFavorito) {
         botonDeFavorito.innerText = "☆";
     }
 }
+
+let filtroElemento = document.getElementById("filtro-elemento");
+let filtroRareza = document.getElementById("filtro-rareza");
+let filtroFavoritos = document.getElementById("filtro-favoritos");
+
+//ahora llamamos a las variables que tomaron la id
+
+//varaible del selector por elementos
+filtroElemento.addEventListener("change", () => {});
+
+//variable del selector por rareza
+filtroRareza.addEventListener("change", () => {});
+
+//variable del selector por favoritos
+filtroFavoritos.addEventListener("change", () => {});
