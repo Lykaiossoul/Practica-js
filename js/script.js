@@ -4,6 +4,9 @@ let criaturas = [];
 let contenedorCriaturas = document.getElementById("contenedor-criaturas");
 let buscadorInput = document.getElementById("buscador-criaturas");
 
+
+
+
 // version async-await
 
 async function arrayCriaturas() {
@@ -69,8 +72,23 @@ arrayCriaturas()
 function actualizacionDeObservaciones(idDeCriatura) {
     //hacemos una varaible para almacenar a la criatura que se encontro en cada caso y le pedimos que busque una a una por el array json
     let criaturaSeleccionada = criaturas.find(criatura => criatura.id === idDeCriatura);
-    criaturaSeleccionada.descubierto = true;
-    criaturaSeleccionada.avistamientos++;
+    if (criaturaSeleccionada) {
+        criaturaSeleccionada.descubierto = true;
+        criaturaSeleccionada.avistamientos++;
+    }
+    if (criaturaSeleccionada.avistamientos === 11) {
+        Swal.fire({
+            position: 'top',
+            theme:'borderless',
+            title: "¡Felicidades!",
+            text: "Has logrado ver 11 veces esta criatura.",
+            // imageUrl: "https://unsplash.it/400/200",
+            // imageWidth: 400,
+            // imageHeight: 200,
+            // imageAlt: "Insignia de logro",
+            iconHtml: "🎖️",
+        });
+    }
     localStorage.setItem("registroDeColeccion", JSON.stringify(criaturas))
     renderizarCriaturas(criaturas);
 }
@@ -90,7 +108,6 @@ buscadorInput.addEventListener("input", function () {
     }
 
 });
-
 
 
 
