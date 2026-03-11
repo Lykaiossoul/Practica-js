@@ -1,6 +1,6 @@
 const jsonCriaturas = "../db/data.json";
 let criaturasDelAlbum = [];
-const contenedorColeccion = document.getElementById("contenedor-coleccion");
+let contenedorColeccion = document.getElementById("contenedor-coleccion");
 
 
 async function cargarAlbum() {
@@ -25,35 +25,27 @@ async function cargarAlbum() {
 cargarAlbum()
 
 function renderizarCriaturas(TarjetasCriaturas) {
-    contenedorCriaturas.innerHTML = "";
+    contenedorColeccion.innerHTML = "";
     TarjetasCriaturas.forEach(criatura => {
         let card = document.createElement("div");
         card.className = "tarjeta-criatura";
-        if (criatura.descubierto === false) {
-            // Asignamos las dos clases juntas separadas por un espacio
-            card.className = "tarjeta-criatura silueta";
-            card.innerHTML = `
-                <img src="${criatura.imagen}" alt="Criatura misteriosa">
-                <h3>???</h3>
-                <p><strong>Elemento:</strong> Desconocido</p>
-                <p><strong>Rareza:</strong> Desconocida</p>
-                <button id="btn-${criatura.id}">Registrar</button>`;
-
+        let iconoFavorito = "";
+        if (criatura.favorito === true) {
+            iconoFavorito = "★"; //esta estrella me la dio la IA, asi que espero que se pueda usar
         } else {
-            //aqui se quita la clase de silueta
-            card.className = "tarjeta-criatura";
-            card.innerHTML = `
+            iconoFavorito = "☆";
+        }
+        card.innerHTML = `
                 <img src="${criatura.imagen}" alt="${criatura.nombre}">
                 <h3>${criatura.nombre}</h3>
                 <p><strong>Elemento:</strong> ${criatura.elemento}</p>
                 <p><strong>Rareza:</strong> ${criatura.rareza}</p>
                 <p><strong>Avistamientos:</strong> ${criatura.avistamientos}</p>
-                <button id="btn-${criatura.id}">Nueva observacion</button>`;
-        }
-        contenedorCriaturas.appendChild(card);
-        let boton = document.getElementById("btn-" + criatura.id);
-        boton.addEventListener("click", () => {
-            actualizacionDeObservaciones(criatura.id);
+                <button id="fav-${criatura.id}" class="btn-favorito"> ${iconoFavorito}</button>`;
+        contenedorColeccion.appendChild(card);
+        let botonFav = document.getElementById("fav-" + criatura.id);
+        botonFav.addEventListener("click", () => {
+            alternarFavorito(criatura.id);
         });
-    })
+    });
 }
