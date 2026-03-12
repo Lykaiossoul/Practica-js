@@ -34,7 +34,7 @@ async function arrayCriaturas() {
 }
 
 
-//1.Creacion de tarjetas de criaturas
+//Creacion de tarjetas de criaturas
 function renderizarCriaturas(TarjetasCriaturas) {
     contenedorCriaturas.innerHTML = "";
     TarjetasCriaturas.forEach(criatura => {
